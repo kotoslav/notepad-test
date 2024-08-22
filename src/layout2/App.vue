@@ -1,42 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import type { Ref } from 'vue'
+import { BaseApp } from '@/BaseApp'
 
-let id: number = 1
-
-interface Tab {
-  id: number
-  text: string
-}
-
-let tabs: Tab[] = reactive([
-  { id: id++, text: 'hello, world1' },
-  { id: id++, text: 'hello, world2' },
-  { id: id++, text: 'hello, world3' }
-])
-
-let selectedTab: Ref<Tab | null> = ref(tabs[0])
-
-function selectTab(id: number) {
-  selectedTab.value = tabs.find((tab) => tab.id == id) || null
-}
-
-function newTab() {
-  const tabId: number = id++
-  tabs.push({ id: tabId, text: '' })
-  selectTab(tabId)
-}
-
-function deleteTab(index: number) {
-  tabs.splice(index, 1)
-  if (selectedTab.value !== null) {
-    const previousTab: Tab | null =
-      [...tabs].reverse().find((tab) => tab.id < selectedTab.value!.id) || null
-    if (tabs.length !== 0) {
-      selectTab(previousTab === null ? tabs[0].id : previousTab.id)
-    } else selectTab(0)
-  }
-}
+const { tabs, selectedTab, selectTab, newTab, deleteTab } = BaseApp()
 </script>
 <template>
   <header class="tabs">
@@ -78,6 +43,7 @@ function deleteTab(index: number) {
   justify-content: center;
   gap: 5px;
   color: black;
+  cursor: pointer;
 }
 
 .tab-active {
@@ -102,6 +68,7 @@ function deleteTab(index: number) {
   color: #eefcff;
   background-color: black;
   flex-grow: 1;
+  resize: none;
 }
 
 .close-button {
