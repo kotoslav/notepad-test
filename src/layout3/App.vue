@@ -56,6 +56,7 @@ function openTab(id: number) {
   gap: 1em;
   padding: 5px;
   z-index: 100;
+  transition: 0.5s;
 }
 
 .tabs-closed {
@@ -97,10 +98,14 @@ function openTab(id: number) {
   width: 100%;
   color: #eefcff;
   background-color: black;
+  outline: none;
+  border: none;
   resize: none;
+  padding: 2em 2em 0 2em;
 }
 
 .input {
+  background-color: black;
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -116,11 +121,13 @@ function openTab(id: number) {
 }
 
 .close-button {
-  background-color: #ff0000;
+  background-color: #c9836e;
   color: #ffffff;
   position: absolute;
   height: 100%;
+  border: none;
   border-radius: inherit;
   right: 0;
+  cursor: pointer;
 }
 </style>

@@ -10,7 +10,6 @@ export default class Store {
     } catch (e) {
       this._data = []
     }
-    console.log(this.data)
   }
 
   set data(data: Tab[]) {
@@ -22,7 +21,7 @@ export default class Store {
   }
 
   loadFromLS() {
-    this.data = JSON.parse(localStorage.getItem('data')) || []
+    this.data = JSON.parse(localStorage.getItem('data') || '[]')
   }
 
   saveToLS() {

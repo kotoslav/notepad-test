@@ -1,6 +1,7 @@
 import { ref, reactive, watch } from 'vue'
 import type { Ref } from 'vue'
-import Store from './assets/utils/store'
+import Store from './utils/store'
+import { sendApi, getApi } from './utils/api'
 
 export interface Tab {
   id: number
@@ -11,6 +12,10 @@ export function BaseApp() {
   const store = new Store()
 
   const tabs: Tab[] = reactive(store.data)
+  
+  getApi().then((result) => {
+    tabs.push(result)
+  });
 
   let id: number = 1
 
@@ -22,6 +27,7 @@ export function BaseApp() {
 
   watch(tabs, () => {
     store.saveToLS()
+    sendApi(tabs)
   })
 
   function selectTab(id: number) {
