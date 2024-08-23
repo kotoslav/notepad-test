@@ -1,4 +1,4 @@
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, getCurrentInstance } from 'vue'
 import type { Ref } from 'vue'
 import Store from './utils/store'
 import { sendApi, getApi } from './utils/api'
@@ -12,10 +12,12 @@ export function BaseApp() {
   const store = new Store()
 
   const tabs: Tab[] = reactive(store.data)
-  
+
   getApi().then((result) => {
-    tabs.push(result)
-  });
+    if (!(result instanceof Error)) {
+      tabs.splice(0, tabs.length, ...result)
+    }
+  })
 
   let id: number = 1
 
